@@ -1,0 +1,18 @@
+<div class="poll-card">
+  <h1>Results: <%= poll.question %></h1>
+
+  <ul class="results-list">
+    <% poll.options.forEach(opt=>{ %>
+      <li>
+        <span><strong><%= opt.text %></strong></span>
+        <span><strong><%= opt.votes || 0 %></strong> votes</span>
+      </li>
+    <% }) %>
+  </ul>
+
+  <p style="text-align: center; font-size: 18px; margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+    <strong>Total votes: <%= total %></strong>
+  </p>
+</div>
+
+<a href="/" style="display: inline-block; margin-top: 20px;">← Back to polls</a>

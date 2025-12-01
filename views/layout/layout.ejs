@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Voting App</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <nav>
+        <a href="/">🏠 Home</a>
+        <% if(!currentUser){ %>
+          <a href="/auth/signup">📝 Signup</a>
+          <a href="/auth/login">🔐 Login</a>
+        <% } else { %>
+          <span>👤 Hi, <%= currentUser.name %></span>
+          <a href="/polls/create">➕ Create Poll</a>
+          <form method="post" action="/auth/logout" style="display:inline">
+            <button type="submit">🚪 Logout</button>
+          </form>
+        <% } %>
+      </nav>
+    </header>
+
+    <main>
+      <% if(success && success.length > 0){ %>
+        <div class="flash success"><%= success[0] %></div>
+      <% } %>
+      <% if(error && error.length > 0){ %>
+        <div class="flash error"><%= error[0] %></div>
+      <% } %>
+
+      <%- body %>
+    </main>
+
+    <footer>
+      <p>Simple Voting App • Built with Node.js & Express</p>
+    </footer>
+  </div>
+</body>
+</html>

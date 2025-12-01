@@ -1,0 +1,28 @@
+<h1>All Polls</h1>
+
+<% if(polls.length === 0){ %>
+  <div style="text-align: center; padding: 40px; color: #6c757d;">
+    <p style="font-size: 18px;">No polls available yet.</p>
+    <a href="/polls/create" class="btn" style="display: inline-block; margin-top: 20px; text-decoration: none;">Create First Poll</a>
+  </div>
+<% } else { %>
+  <ul>
+    <% polls.forEach(poll=>{ %>
+      <li>
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+          <div>
+            <a href="/polls/<%= poll._id %>" style="font-size: 18px;"><%= poll.question %></a>
+            <% if(poll.expiresAt){ %>
+              <p style="margin: 5px 0 0 0; color: #6c757d; font-size: 14px;">
+                ⏰ Expires: <%= new Date(poll.expiresAt).toLocaleString() %>
+              </p>
+            <% } %>
+          </div>
+          <div>
+            <a href="/polls/<%= poll._id %>/results" class="btn" style="display: inline-block; text-decoration: none; padding: 8px 16px; font-size: 14px;">View Results</a>
+          </div>
+        </div>
+      </li>
+    <% }) %>
+  </ul>
+<% } %>

@@ -1,0 +1,26 @@
+<div class="poll-card">
+  <h1><%= poll.question %></h1>
+
+  <% if(userVoted !== null){ %>
+    <p style="font-size: 18px; margin: 20px 0;">You already voted for: <strong style="color: #667eea;"><%= poll.options[userVoted].text %></strong></p>
+    <a href="/polls/<%= poll._id %>/results" class="btn" style="display: inline-block; text-decoration: none;">View Results</a>
+  <% } else { %>
+    <form method="post" action="/polls/<%= poll._id %>/vote">
+      <div class="poll-options">
+        <% poll.options.forEach((opt, idx)=>{ %>
+          <label>
+            <input type="radio" name="option" value="<%= idx %>" required />
+            <%= opt.text %>
+          </label>
+        <% }) %>
+      </div>
+      <button type="submit">Vote</button>
+    </form>
+  <% } %>
+
+  <% if(poll.expiresAt){ %>
+    <p style="margin-top: 20px;"><small>Expires: <%= new Date(poll.expiresAt).toLocaleString() %></small></p>
+  <% } %>
+</div>
+
+<a href="/" style="display: inline-block; margin-top: 20px;">← Back to polls</a>

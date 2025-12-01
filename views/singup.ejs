@@ -1,0 +1,12 @@
+<% layout('layout/layout') %>
+
+<h1>Signup</h1>
+<form method="post" action="/auth/signup">
+  <label>Name</label><br />
+  <input name="name" required /><br />
+  <label>Email</label><br />
+  <input name="email" type="email" required /><br />
+  <label>Password</label><br />
+  <input name="password" type="password" required /><br /><br />
+  <button type="submit">Signup</button>
+</form>
