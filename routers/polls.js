@@ -9,11 +9,23 @@ function requireLogin(req, res, next){
   next();
 }
 
+function requireAdmin(req, res, next){
+  if(!req.session.user){ 
+    req.flash('error','Login required'); 
+    return res.redirect('/auth/login'); 
+  }
+  if(req.session.user.role !== 'admin'){
+    req.flash('error','Only admin can create polls');
+    return res.redirect('/');
+  }
+  next();
+}
+
 // create form (admin or any logged user)
-router.get('/create', requireLogin, (req, res) => res.render('create-poll'));
+router.get('/create', requireAdmin, (req, res) => res.render('create-poll'));
 
 // create poll
-router.post('/create', requireLogin, async (req, res) => {
+router.post('/create', requireAdmin, async (req, res) => {
   try {
     const { question, options, expiresAt } = req.body;
     // options can be newline separated

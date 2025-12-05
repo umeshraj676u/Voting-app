@@ -14,9 +14,13 @@
         <% if(!currentUser){ %>
           <a href="/auth/signup">📝 Signup</a>
           <a href="/auth/login">🔐 Login</a>
+          <a href="/auth/check-admin">⚙️ Admin Panel</a>
         <% } else { %>
           <span>👤 Hi, <%= currentUser.name %></span>
-          <a href="/polls/create">➕ Create Poll</a>
+          <% if(currentUser.role === 'admin'){ %>
+            <a href="/polls/create">➕ Create Poll</a>
+          <% } %>
+          <a href="/auth/check-admin">⚙️ Admin Panel</a>
           <form method="post" action="/auth/logout" style="display:inline">
             <button type="submit">🚪 Logout</button>
           </form>

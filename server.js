@@ -52,3 +52,4 @@ app.use('/polls', pollRoutes);
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+
