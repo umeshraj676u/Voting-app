@@ -108,4 +108,24 @@ router.get('/:id/results', async (req, res) => {
   }
 });
 
+// delete poll (admin only)
+router.delete('/:id', requireAdmin, async (req, res) => {
+  try {
+    const pollId = req.params.id;
+    const poll = await Poll.findById(pollId);
+    if(!poll){ req.flash('error','Poll not found'); return res.redirect('/'); }
+
+    // delete poll and its votes
+    await Vote.deleteMany({ poll: pollId });
+    await Poll.findByIdAndDelete(pollId);
+
+    req.flash('success','Poll deleted');
+    res.redirect('/');
+  } catch (err) {
+    console.error(err);
+    req.flash('error','Could not delete poll');
+    res.redirect('/');
+  }
+});
+
 module.exports = router;

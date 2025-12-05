@@ -21,6 +21,15 @@
   <% if(poll.expiresAt){ %>
     <p style="margin-top: 20px;"><small>Expires: <%= new Date(poll.expiresAt).toLocaleString() %></small></p>
   <% } %>
+
+  <% if(currentUser && currentUser.role === 'admin'){ %>
+    <form method="post" action="/polls/<%= poll._id %>?_method=DELETE" style="margin-top:20px;">
+      <button type="submit" style="background:#dc3545;color:white;border:none;padding:10px 14px;border-radius:4px;cursor:pointer;"
+        onclick="return confirm('Delete this poll? Votes will be removed too.');">
+        🗑️ Delete Poll
+      </button>
+    </form>
+  <% } %>
 </div>
 
 <a href="/" style="display: inline-block; margin-top: 20px;">← Back to polls</a>
